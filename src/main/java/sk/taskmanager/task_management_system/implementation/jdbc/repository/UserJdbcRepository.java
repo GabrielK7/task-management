@@ -28,11 +28,13 @@ public class UserJdbcRepository {
     private static final String GET_BY_ID;
     private static final Logger logger;
     private static final String INSERT;
+    private static final String  DELETE;
 
     static {
         GET_ALL = "SELECT * FROM user";
         GET_BY_ID = "SELECT * FROM user WHERE id = ?";
         INSERT = "INSERT INTO user (id, name, email) VALUES (next value for user_id_seq, ?, ?)";
+        DELETE ="DELETE FROM user WHERE id = ?";
         logger = LoggerFactory.getLogger(UserJdbcRepository.class);
     }
 
@@ -50,14 +52,14 @@ public class UserJdbcRepository {
                 ps.setString(2, request.getEmail());
                 return ps;
             }, keyHolder);
-            if(keyHolder.getKey() == null){
+            if (keyHolder.getKey() == null) {
                 logger.error("Error while adding user" + keyHolder.getKey() + " is null");
                 throw new InternalErrorException("Error while adding user");
             }
             return keyHolder.getKey().longValue();
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new BadRequestException("User with email: " + request.getEmail() + "already exists");
-        }catch(DataAccessException e){
+        } catch (DataAccessException e) {
             logger.error("Error while adding user");
             throw new InternalErrorException("Error while adding user");
         }
@@ -77,6 +79,14 @@ public class UserJdbcRepository {
             logger.error("Error while getting user");
             throw new InternalErrorException("Error while getting user with id");
         }
+    }
 
+    public void delete(long id){
+        try{
+            jdbcTemplate.update(DELETE, id);
+        }catch (DataAccessException e){
+            logger.error("Error while deleting user", e);
+            throw new InternalErrorException("Error while deleting user");
+        }
     }
 }

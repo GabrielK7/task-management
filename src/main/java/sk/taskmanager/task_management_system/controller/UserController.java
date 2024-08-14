@@ -24,11 +24,18 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<User> get(@PathVariable("id") long id){
-return ResponseEntity.ok().body(userService.get(id));
+    public ResponseEntity<User> get(@PathVariable("id") long id) {
+        return ResponseEntity.ok().body(userService.get(id));
     }
+
     @PostMapping
-    public ResponseEntity<Long> add(@RequestBody  UserAddRequest request){
+    public ResponseEntity<Long> add(@RequestBody UserAddRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.add(request));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
+        userService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

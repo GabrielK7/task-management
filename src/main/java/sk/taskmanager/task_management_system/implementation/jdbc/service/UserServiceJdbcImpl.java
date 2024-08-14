@@ -7,9 +7,10 @@ import sk.taskmanager.task_management_system.domain.User;
 import sk.taskmanager.task_management_system.implementation.jdbc.repository.UserJdbcRepository;
 
 import java.util.List;
+
 @Service
 public class UserServiceJdbcImpl implements UserService {
-private  final UserJdbcRepository userJdbcRepository;
+    private final UserJdbcRepository userJdbcRepository;
 
     public UserServiceJdbcImpl(UserJdbcRepository userJdbcRepository) {
         this.userJdbcRepository = userJdbcRepository;
@@ -22,7 +23,9 @@ private  final UserJdbcRepository userJdbcRepository;
 
     @Override
     public void delete(long id) {
-
+        if(this.get(id) != null) {
+            userJdbcRepository.delete(id);
+        }
     }
 
     @Override
