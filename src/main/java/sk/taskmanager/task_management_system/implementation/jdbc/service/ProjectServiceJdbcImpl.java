@@ -13,12 +13,17 @@ import java.util.List;
 @Service
 public class ProjectServiceJdbcImpl implements ProjectService {
     ProjectJdbcRepository projectJdbcRepository;
+    UserJdbcRepository userJdbcRepository;
 
-    public ProjectServiceJdbcImpl(UserJdbcRepository userJdbcRepository) {
-        this.userJdbcRepository = userJdbcRepository;
+
+    public ProjectServiceJdbcImpl() {
     }
 
-    UserJdbcRepository userJdbcRepository;
+    public ProjectServiceJdbcImpl(UserJdbcRepository userJdbcRepository, ProjectJdbcRepository projectJdbcRepository) {
+        this.userJdbcRepository = userJdbcRepository;
+        this.projectJdbcRepository = projectJdbcRepository;
+    }
+
 
     public ProjectServiceJdbcImpl(ProjectJdbcRepository jdbcRepository, UserJdbcRepository userJdbcRepository) {
         this.projectJdbcRepository = jdbcRepository;
@@ -32,31 +37,42 @@ public class ProjectServiceJdbcImpl implements ProjectService {
 
     @Override
     public List<Project> getAll() {
-        if (userJdbcRepository.getById(id) != null) {
+        if (userJdbcRepository.getAll() != null) {
             return projectJdbcRepository.getAll();
         }
+        return null;
+    }
 
-        @Override
-        public List<Project> getAllByUser(long userId){
+    @Override
+    public List<Project> getAllByUser(long userId) {
 
-            if (userJdbcRepository.getById(userId) != null) {
-                return projectJdbcRepository.getAllByUser(userId);
-            }
-            return null;
+        if (userJdbcRepository.getById(userId) != null) {
+            return projectJdbcRepository.getAllByUser(userId);
         }
+        return null;
+    }
 
-        @Override
-        public void delete ( long id){
+    @Override
+    public void delete(long id) {
+        //TODO
 
-        }
-
-        @Override
-        public long add (ProjectAddRequest request){
-            return 0;
-        }
-
-        @Override
-        public void edit ( long id, ProjectEditRequest request){
-
+       /* if(this.get(id !=null )){
+            taskJdbcRepository.deleteAllByProject(id);
+        }*/
+        if (this.get(id) != null) {
+            projectJdbcRepository.delete(id);
         }
     }
+
+    @Override
+    public long add(ProjectAddRequest request) {
+        return projectJdbcRepository.add(request);
+    }
+
+    @Override
+    public void edit(long id, ProjectEditRequest request) {
+        if (this.get(id) != null) {
+            projectJdbcRepository.update(id, request);
+        }
+    }
+}
