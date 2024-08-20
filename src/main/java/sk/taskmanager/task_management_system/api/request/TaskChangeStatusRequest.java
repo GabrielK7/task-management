@@ -4,12 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import sk.taskmanager.task_management_system.domain.TaskStatus;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectEditRequest {
-    private String name;
-    private String description;
-
+public class TaskChangeStatusRequest {
+    private TaskStatus status;
 }

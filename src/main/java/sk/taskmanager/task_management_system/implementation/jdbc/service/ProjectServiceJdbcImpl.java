@@ -16,17 +16,8 @@ public class ProjectServiceJdbcImpl implements ProjectService {
     UserJdbcRepository userJdbcRepository;
 
 
-    public ProjectServiceJdbcImpl() {
-    }
-
-    public ProjectServiceJdbcImpl(UserJdbcRepository userJdbcRepository, ProjectJdbcRepository projectJdbcRepository) {
-        this.userJdbcRepository = userJdbcRepository;
+      public ProjectServiceJdbcImpl(ProjectJdbcRepository projectJdbcRepository, UserJdbcRepository userJdbcRepository) {
         this.projectJdbcRepository = projectJdbcRepository;
-    }
-
-
-    public ProjectServiceJdbcImpl(ProjectJdbcRepository jdbcRepository, UserJdbcRepository userJdbcRepository) {
-        this.projectJdbcRepository = jdbcRepository;
         this.userJdbcRepository = userJdbcRepository;
     }
 
@@ -37,10 +28,8 @@ public class ProjectServiceJdbcImpl implements ProjectService {
 
     @Override
     public List<Project> getAll() {
-        if (userJdbcRepository.getAll() != null) {
-            return projectJdbcRepository.getAll();
-        }
-        return null;
+
+        return projectJdbcRepository.getAll();
     }
 
     @Override

@@ -8,7 +8,7 @@ import sk.taskmanager.task_management_system.implementation.jdbc.repository.User
 
 import java.util.List;
 
-@Service
+@Service()
 public class UserServiceJdbcImpl implements UserService {
     private final UserJdbcRepository userJdbcRepository;
 

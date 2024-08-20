@@ -51,6 +51,10 @@ public class ProjectJdbcRepository {
         this.rowMapper = rowMapper;
     }
 
+
+
+
+
     public List<Project> getAll() {
         try {
             return jdbcTemplate.query(GET_ALL, rowMapper);

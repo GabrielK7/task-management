@@ -1,5 +1,6 @@
 package sk.taskmanager.task_management_system.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("user")
 public class UserController {
-    private final UserService userService;
+    private final  UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
