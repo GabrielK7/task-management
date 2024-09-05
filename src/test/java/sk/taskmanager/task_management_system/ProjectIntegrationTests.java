@@ -2,11 +2,17 @@ package sk.taskmanager.task_management_system;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
 import sk.taskmanager.task_management_system.api.exception.ResourceNotFoundException;
 import sk.taskmanager.task_management_system.api.request.ProjectAddRequest;
 import sk.taskmanager.task_management_system.api.request.ProjectEditRequest;
